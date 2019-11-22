@@ -6,8 +6,9 @@
 
 /**
  * @brief An interface with the end goals of image processing
- * @class An abstract class wrapper of the two final goal methods of image processing
- *  for this year - finding the x,y,z of a pole and the x,y,z of the 
+ * @class An abstract class wrapper of the three final goal methods of image processing
+ *  for this year - finding the x,y,z of a pole, the x,y,z of the module, and multiple
+ *  x,y,z's of incoming obstacles
  */
 using namespace cv;
 namespace DroneVision
