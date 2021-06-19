@@ -15,8 +15,6 @@ using namespace std;
          return -1;
     }
 
-    namedWindow("Control", WINDOW_AUTOSIZE); //create a window called "Control"
-
  int iLowH = 170;
  int iHighH = 179;
 
@@ -35,9 +33,6 @@ using namespace std;
 
  createTrackbar("LowV", "Control", &iLowV, 255);//Value (0 - 255)
  createTrackbar("HighV", "Control", &iHighV, 255);
-
- int iLastX = -1; 
- int iLastY = -1;
 
  //Capture a temporary image from the camera
  Mat imgTmp;
@@ -94,19 +89,15 @@ using namespace std;
    int posX = dM10 / dArea;
    int posY = dM01 / dArea;        
         
-   if (iLastX >= 0 && iLastY >= 0 && posX >= 0 && posY >= 0)
+   if (posX >= 0 && posY >= 0)
    {
     //Draw a red line from the previous point to the current point
-    line(imgLines, Point(posX, posY), Point(iLastX, iLastY), Scalar(0,0,255), 2);
+    circle(imgOriginal, Point(posX, posY), 50, Scalar(0,255,255), 2);
    }
-
-   iLastX = posX;
-   iLastY = posY;
   }
 
   imshow("Thresholded Image", imgThresholded); //show the thresholded image
 
-  imgOriginal = imgOriginal + imgLines;
   imshow("Original", imgOriginal); //show the original image
 
         if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
