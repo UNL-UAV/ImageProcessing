@@ -15,13 +15,15 @@ using namespace std;
          return -1;
     }
 
- int iLowH = 170;
- int iHighH = 179;
+ namedWindow("Control", WINDOW_AUTOSIZE); //create a window called "Control"
 
- int iLowS = 150; 
- int iHighS = 255;
+ int iLowH = 90;
+ int iHighH = 114;
 
- int iLowV = 60;
+ int iLowS = 67; 
+ int iHighS = 163;
+
+ int iLowV = 167;
  int iHighV = 255;
 
  //Create trackbars in "Control" window
@@ -66,6 +68,8 @@ using namespace std;
       
   //morphological opening (removes small objects from the foreground)
 
+ 
+
   erode(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) );
   dilate( imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) ); 
 
@@ -75,24 +79,6 @@ using namespace std;
 
   //Calculate the moments of the thresholded image
   Moments oMoments = moments(imgThresholded);
-
-  double dM01 = oMoments.m01;
-  double dM10 = oMoments.m10;
-  double dArea = oMoments.m00;
-
-  // if the area <= 10000, I consider that the there are no object in the image and it's because of the noise, the area is not zero 
-  if (dArea > 10000)
-  {
-   //calculate the position of the ball
-   int posX = dM10 / dArea;
-   int posY = dM01 / dArea;        
-        
-   if (posX >= 0 && posY >= 0)
-   {
-    //Draw a red line from the previous point to the current point
-    circle(imgOriginal, Point(posX, posY), 50, Scalar(0,255,255), 2);
-   }
-  }
 
   imshow("Thresholded Image", imgThresholded); //show the thresholded image
 
